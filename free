@@ -1,0 +1,215 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Projeto LKA", HidePremium = false, IntroText = "Projeto LKA", SaveConfig = true, ConfigFolder = "Projeto LKA"})
+
+local Tab = Window:MakeTab({
+	Name = "Tab 1",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Choose"
+})
+
+Tab:AddButton({
+	Name = "Mobile Version",
+	Callback = function()
+      		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Title of the library", HidePremium = false, IntroText = "Projeto LKA", SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Tab 1",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddTextbox({
+  Name = "Hitbox",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(value)
+     _G.HeadSize = value
+_G.Disabled = true
+ 
+game:GetService('RunService').RenderStepped:connect(function()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.HumanoidRootPart.Transparency = 0.7
+v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+v.Character.HumanoidRootPart.Material = "Neon"
+v.Character.HumanoidRootPart.CanCollide = false
+end)
+end
+end
+end
+end)
+  end	  
+})
+
+Tab:AddTextbox({
+  Name = "Speed",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(value)
+    print(value)
+getgenv().Walkspeed = value
+    pcall(function()
+        game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = value
+    end)
+  end	  
+})
+
+Tab:AddTextbox({
+  Name = "Jump",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(value)
+    print(value)
+getgenv().Jumppower = value
+    pcall(function()
+        game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = value
+    end)
+  end	  
+})
+
+Tab: AddToggle({
+  Name = "Loop speed",
+  Callback = function(state)
+    print(value)
+getgenv().loopW = state
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if loopW == true then
+            pcall(function()
+                game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = Walkspeed
+            end)
+        end
+    end)
+  end	  
+})
+
+Tab: AddToggle({
+  Name = "Loop jump power",
+  Callback = function(state)
+    print(value)
+getgenv().loopJ = state
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if loopJ == true then
+            pcall(function()
+                game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = Jumppower
+            end)
+        end
+    end)
+  end	  
+})
+
+Tab:AddTextbox({
+  Name = "Fov",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(value)
+    print(value)
+local FovNumber = value
+local Camera = workspace.CurrentCamera
+Camera.FieldOfView = FovNumber  
+  end	  
+})
+
+      	Tab: AddButton({
+  Name = "Esp highlight",
+  Callback = function(value)
+    print(value)
+local FillColor = Color3.fromRGB(65,255,0)
+local DepthMode = "AlwaysOnTop"
+local FillTransparency = 0.5
+local OutlineColor = Color3.fromRGB(255,255,255)
+local OutlineTransparency = 0
+
+local CoreGui = game:FindService("CoreGui")
+local Players = game:FindService("Players")
+local lp = Players.LocalPlayer
+local connections = {}
+
+local Storage = Instance.new("Folder")
+Storage.Parent = CoreGui
+Storage.Name = "Highlight_Storage"
+
+local function Highlight(plr)
+    local Highlight = Instance.new("Highlight")
+    Highlight.Name = plr.Name
+    Highlight.FillColor = FillColor
+    Highlight.DepthMode = DepthMode
+    Highlight.FillTransparency = FillTransparency
+    Highlight.OutlineColor = OutlineColor
+    Highlight.OutlineTransparency = 0
+    Highlight.Parent = Storage
+
+    local plrchar = plr.Character
+    if plrchar then
+        Highlight.Adornee = plrchar
+    end
+
+    connections[plr] = plr.CharacterAdded:Connect(function(char)
+        Highlight.Adornee = char
+    end)
+end
+
+Players.PlayerAdded:Connect(Highlight)
+for i,v in next, Players:GetPlayers() do
+    Highlight(v)
+end
+
+Players.PlayerRemoving:Connect(function(plr)
+    local plrname = plr.Name
+    if Storage[plrname] then
+        Storage[plrname]:Destroy()
+    end
+    if connections[plr] then
+        connections[plr]:Disconnect()
+    end
+end)
+end
+})
+
+Tab: AddButton({
+  Name = "Infinite jump",
+  Callback = function(value)
+    print(value)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/BsGlitch/-nfJumps/main/BsGlitch"))()
+end
+})
+
+Tab: AddButton({
+  Name = "Random Server",
+  Callback = function(value)
+    print(value)
+local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
+
+module:Teleport(game.PlaceId)
+end
+})
+
+Tab: AddButton({
+  Name = "Rejoin",
+  Callback = function(value)
+    print(value)
+local ts = game:GetService("TeleportService")
+local p = game:GetService("Players").LocalPlayer
+ts:Teleport(game.PlaceId, p)
+end
+})
+
+OrionLib:Init()
+
+  	end    
+})
+
+
+Tab:AddButton({
+	Name = "PC Version",
+	Callback = function()
+	 loadstring(game:HttpGet("https://raw.githubusercontent.com/dqtixz/1v1-Pistol-Scripy-Made-By-dqtixz-For-Pc/main/Free"))();
+	end    
+})
